@@ -7,6 +7,8 @@ public class Tank : MonoBehaviour
     public float m_Speed = 20f;
     public float m_RotationSpeed = 180f;
 
+    public Vector3 Base = new Vector3(10, 0, 10);
+
     private Rigidbody m_Rigidbody;
 
     private float m_ForwardInputValue;
@@ -15,18 +17,20 @@ public class Tank : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+
     }
 
     private void OnEnable()
     {
+        transform.position = Base;
         m_Rigidbody.isKinematic = false;
-
         m_ForwardInputValue = 0;
         m_TurnInputValue = 0;
     }
 
     private void OnDisable()
     {
+        transform.position = Base;
         m_Rigidbody.isKinematic = true;
     }
 

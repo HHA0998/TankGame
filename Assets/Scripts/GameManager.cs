@@ -5,6 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public FileIO m_HighScores;
 
     public TextMeshProUGUI m_MessageText;
     public TextMeshProUGUI m_TimerText;
@@ -95,6 +96,8 @@ public class GameManager : MonoBehaviour
             //Debug.Log("You Win! Darneit!");
             m_MessageText.text = "WINNER!";
             isGameOver = true;
+            m_HighScores.AddScore(Mathf.RoundToInt(m_gameTime));
+            m_HighScores.SaveScoreToFile();
         }
 
         if (isGameOver == true)

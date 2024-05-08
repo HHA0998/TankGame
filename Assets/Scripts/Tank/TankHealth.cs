@@ -11,7 +11,7 @@ public class TankHealth : MonoBehaviour
 
     public GameObject m_ExplosionPrefab;
 
-    private float m_CurrentHealth;
+    public float m_CurrentHealth;
     private bool m_Dead;
 
     private ParticleSystem m_ExplosionParticles;
@@ -35,7 +35,7 @@ public class TankHealth : MonoBehaviour
     public void TakeDamage(float amount)
     {
         m_CurrentHealth -= amount;
-
+        Debug.Log(m_CurrentHealth);
         if (m_CurrentHealth <= 0f && !m_Dead)
         {
             OnDeath();

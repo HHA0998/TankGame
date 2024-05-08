@@ -101,7 +101,7 @@ public class EnemyTank : MonoBehaviour
 
         float distance = (m_Player.transform.position - transform.position).magnitude;
 
-        Debug.Log(distance);
+        //Debug.Log(distance);
 
         if (m_Follow == true)
         {
