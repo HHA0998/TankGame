@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI m_MessageText;
     public TextMeshProUGUI m_TimerText;
+    public TextMeshProUGUI m_GameTitle;
 
     public GameObject m_HighScorePanel;
     public TextMeshProUGUI m_HighScoresText;
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
     public Button m_HighScoresButton;
     public Button m_BackButton;
 
+    public AudioSource m_Menu;
+    public AudioSource m_Game;
 
     public GameObject[] m_Tanks;
 
@@ -111,9 +114,7 @@ public class GameManager : MonoBehaviour
         if (isGameOver == true)
         {
             m_GameState = GameState.Gameover;
-
-            m_NewGameButton.gameObject.SetActive(true);
-            m_HighScoresButton.gameObject.SetActive(true);
+            OnMenu();
         }
     }
     private void GameStateGameOver()
@@ -138,6 +139,7 @@ public class GameManager : MonoBehaviour
         m_HighScoresButton.gameObject.SetActive(false);
         m_BackButton.gameObject.SetActive(true);
         m_HighScorePanel.SetActive(true);
+        m_GameTitle.gameObject.SetActive(false);
 
         string text = "";
         for(int i = 0; i < m_HighScores.scores.Length; i++)
@@ -149,19 +151,26 @@ public class GameManager : MonoBehaviour
     }
     public void OnMenu() //Better Menu
     {
+        m_Menu.UnPause();
+        m_Game.Stop();
         m_TimerText.gameObject.SetActive(false);
         m_HighScorePanel.gameObject.SetActive(false);
         m_BackButton.gameObject.SetActive(false);
         m_NewGameButton.gameObject.SetActive(true);
         m_HighScoresButton.gameObject.SetActive(true);
+        m_GameTitle.gameObject.SetActive(true);
     }
 
     public void OnNewGame()
     {
+        m_Menu.Pause();
+        m_Game.Play();
         m_HighScorePanel.gameObject.SetActive(false);
         m_BackButton.gameObject.SetActive(false);
         m_NewGameButton.gameObject.SetActive(false);
         m_HighScoresButton.gameObject.SetActive(false);
+        m_GameTitle.gameObject.SetActive(false);
+
 
         m_TimerText.gameObject.SetActive(true);
         m_MessageText.text = "";
