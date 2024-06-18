@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public FileIO m_HighScores;
+    public Highscores m_HighScores;
 
     public TextMeshProUGUI m_MessageText;
     public TextMeshProUGUI m_TimerText;
+
+    public GameObject m_HighScorePanel;
+    public TextMeshProUGUI m_HighScoresText;
+
+    public Button m_NewGameButton;
+    public Button m_HighScoresButton;
+
 
     public GameObject[] m_Tanks;
 
@@ -42,6 +50,10 @@ public class GameManager : MonoBehaviour
 
         m_TimerText.gameObject.SetActive(false);
         m_MessageText.text = "Get Ready!";
+
+        m_HighScorePanel.gameObject.SetActive(false);
+        m_NewGameButton.gameObject.SetActive(true);
+        m_HighScoresButton.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -103,6 +115,9 @@ public class GameManager : MonoBehaviour
         if (isGameOver == true)
         {
             m_GameState = GameState.Gameover;
+
+            m_NewGameButton.gameObject.SetActive(true);
+            m_HighScoresButton.gameObject.SetActive(true);
         }
     }
     private void GameStateGameOver()
@@ -120,8 +135,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnHighScores()
+    {
+        m_MessageText.text = "";
+
+        m_HighScoresButton.gameObject.SetActive(false);
+        m_HighScorePanel.SetActive(true);
+
+        string text = "";
+        for(int i = 0; i < m_HighScores.scores.Length; i++)
+        {
+            int seconds = m_HighScores.scores[i];
+            text += string.Format("{0:D2}:{1:D2}\n", (seconds / 60), (seconds % 60));
+        }
+        m_HighScoresText.text = text;
+    }
     public void OnNewGame()
     {
+        m_HighScorePanel.gameObject.SetActive(false);
+        m_NewGameButton.gameObject.SetActive(false);
+        m_HighScoresButton.gameObject.SetActive(false);
+
         m_TimerText.gameObject.SetActive(true);
         m_MessageText.text = "";
 

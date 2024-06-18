@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class FileIO : MonoBehaviour
+public class Highscores : MonoBehaviour
 {
     // Start is called before the first frame update
 
