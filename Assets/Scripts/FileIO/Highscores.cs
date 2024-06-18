@@ -25,12 +25,31 @@ public class Highscores : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            LoadScoreFromFile();
+            Debug.Log("Contents of " + scoreFileName + ":");
+            foreach (int score in scores)
+            {
+                Debug.Log(score);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            SaveScoreToFile();
+            Debug.Log("Contents of " + scoreFileName + ":");
+            foreach (int score in scores)
+            {
+                Debug.Log(score);
+            }
+        }
     }
 
     public void LoadScoreFromFile()
     {
         bool fileExists = File.Exists(currentDirectory + "\\" + scoreFileName);
+
+        // for excersise 6 this is allready a check.. i dont understand.
         if (fileExists == true)
         {
             Debug.Log("Found high score file " + scoreFileName);
@@ -38,7 +57,8 @@ public class Highscores : MonoBehaviour
         else
         {
             Debug.Log("The file " + scoreFileName +
-            " does not exist. No scores will be loaded.", this);
+            " does not exist. No scores will be loaded. making a file now", this);
+            File.CreateText(currentDirectory + "\\" + scoreFileName); // this is just a backup incase something happens : > )
             return;
         }
 
@@ -109,4 +129,6 @@ public class Highscores : MonoBehaviour
         scores[desitedIndex] = newScore;
         Debug.Log("score of " + newScore + "enterd into new high score at position " + desitedIndex, this);
     }
+
+
 }

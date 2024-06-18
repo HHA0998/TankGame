@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     public Button m_NewGameButton;
     public Button m_HighScoresButton;
+    public Button m_BackButton;
 
 
     public GameObject[] m_Tanks;
@@ -47,13 +48,8 @@ public class GameManager : MonoBehaviour
         {
             m_Tanks[i].SetActive(false);
         }
-
-        m_TimerText.gameObject.SetActive(false);
         m_MessageText.text = "Get Ready!";
-
-        m_HighScorePanel.gameObject.SetActive(false);
-        m_NewGameButton.gameObject.SetActive(true);
-        m_HighScoresButton.gameObject.SetActive(true);
+        OnMenu(); //This just resets the ui to default basicly
     }
 
     // Update is called once per frame
@@ -140,6 +136,7 @@ public class GameManager : MonoBehaviour
         m_MessageText.text = "";
 
         m_HighScoresButton.gameObject.SetActive(false);
+        m_BackButton.gameObject.SetActive(true);
         m_HighScorePanel.SetActive(true);
 
         string text = "";
@@ -150,9 +147,19 @@ public class GameManager : MonoBehaviour
         }
         m_HighScoresText.text = text;
     }
+    public void OnMenu() //Better Menu
+    {
+        m_TimerText.gameObject.SetActive(false);
+        m_HighScorePanel.gameObject.SetActive(false);
+        m_BackButton.gameObject.SetActive(false);
+        m_NewGameButton.gameObject.SetActive(true);
+        m_HighScoresButton.gameObject.SetActive(true);
+    }
+
     public void OnNewGame()
     {
         m_HighScorePanel.gameObject.SetActive(false);
+        m_BackButton.gameObject.SetActive(false);
         m_NewGameButton.gameObject.SetActive(false);
         m_HighScoresButton.gameObject.SetActive(false);
 
@@ -164,7 +171,8 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < m_Tanks.Length; i++)
         {
-            m_Tanks[i].SetActive(true);
+            m_Tanks[i].SetActive(false);
+            m_Tanks[i].SetActive(true); // Not sure if this is how its "propper" done but does the trick : > )
         }
     }
 
